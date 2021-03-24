@@ -9,52 +9,72 @@
 </ol>
 <img src="${}">
 */
-
-function validateName(name) {
-   if (/^[a-z. ]+$/gi.test(name)) {
-      return true;
-   } else {
-      return false;
-   }
-}
+// window.addEventListener("load", () => {
 
 const form = document.getElementById("launchForm");
 
-function validate(event) {
-// form.addEventListener("submit", (event) => {
-   // event.preventDefault();
-   const pilotName = document.getElementById("pilotName").value.trim();
-   const copilotName = document.getElementById("copilotName").value.trim();
-   const fuelLevel = document.getElementById("fuelLevel").value.trim();
-   const cargoMass = document.getElementById("cargoMass").value.trim();
-   let validStatus = true;
+const pilotName = document.getElementById("pilotName");
+const copilotName = document.getElementById("copilotName");
+const fuelLevel = document.getElementById("fuelLevel");
+const cargoMass = document.getElementById("cargoMass");
 
-   if (pilotName == null || !validateName(pilotName)) {
+const isValidName = name => {
+   return /^[a-z. ]+$/gi.test(name);
+}
+
+const validateForm = event => {
+   let inputs = document.getElementsByTagName("input")
+   let validStatus = true;
+   let completedStatus = true;
+
+   // if (pilotName.value.trim() == null || !isValidName(pilotName.value.trim())) {
+   //    validStatus = false;
+   // } else if (copilotName.value.trim() == null || !isValidName(copilotName.value.trim())) {
+   //    validStatus = false;
+   // } else if (fuelLevel.value.trim() === '' || fuelLevel.value.trim() == null || isNaN(fuelLevel.value.trim())) {
+   //    validStatus = false;
+   // } else if (cargoMass.value.trim() === '' || cargoMass.value.trim() == null || isNaN(cargoMass.value.trim())) {
+   //    validStatus = false;
+   // }
+
+   // Check that pilot names are valid strings; check that fuel level/cargo mass are numbers
+   if (!isValidName(pilotName.value.trim()) || !isValidName(copilotName.value.trim())) {
       validStatus = false;
-   } else if (copilotName == null || !validateName(copilotName)) {
-      validStatus = false;
-   } else if (fuelLevel === '' || fuelLevel == null || isNaN(fuelLevel)) {
-      validStatus = false;
-   } else if (cargoMass === '' || cargoMass == null || isNaN(cargoMass)) {
+   } else if (isNaN(fuelLevel.value.trim()) || isNaN(cargoMass.value.trim())) {
       validStatus = false;
    }
 
-   console.log(pilotName);
-   console.log(copilotName);
-   console.log(fuelLevel);
-   console.log(cargoMass);
+   // if (!isValidName(inputs[0].value.trim()) || !isValidName(inputs[1].value.trim())) {
+   //    validStatus = false;
+   // } else if (isNaN(inputs[2].value.trim()) || isNaN(inputs[3].value.trim())) {
+   //    validStatus = false;
+   // }
+
+   // Check that inputs are not null/undefined/empty
+   for (let i = 0; i < inputs.length; i++) {
+      if (inputs[i].value.trim() == null || inputs[i].value.trim() === '') {
+         completedStatus = false;
+      }
+   }
+
+   console.log(pilotName.value.trim());
+   console.log(copilotName.value.trim());
+   console.log(fuelLevel.value.trim());
+   console.log(cargoMass.value.trim());
    console.log(validStatus);
 
    if (validStatus === false) {
+      alert("Make sure to enter valid information for each field!");
+      event.preventDefault();
+   } else if (completedStatus === false) {
       alert("All fields are required!");
       event.preventDefault();
    } else {
       event.preventDefault();
    }
-// });
 }
 
-window.addEventListener("load", function() {
-   let newForm = document.getElementById("launchForm");
-   newForm.addEventListener("submit", validate);
-});
+   // form.addEventListener("submit", validateForm);
+// });
+
+form.addEventListener("submit", validateForm);
