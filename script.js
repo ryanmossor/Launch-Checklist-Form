@@ -22,16 +22,9 @@ const isValidName = name => {
 }
 
 const validateForm = event => {
-   let inputs = document.getElementsByTagName("input")
-   let validStatus = true;
+   let inputs = document.getElementsByTagName("input");
    let completedStatus = true;
-
-   // Check that pilot names are valid strings; check that fuel level/cargo mass are numbers
-   if (!isValidName(pilotName.value.trim()) || !isValidName(copilotName.value.trim())) {
-      validStatus = false;
-   } else if (isNaN(fuelLevel.value.trim()) || isNaN(cargoMass.value.trim())) {
-      validStatus = false;
-   }
+   let validStatus = true;
 
    // Check that inputs are not null/undefined/empty
    for (let i = 0; i < inputs.length; i++) {
@@ -40,11 +33,18 @@ const validateForm = event => {
       }
    }
 
-   if (validStatus === false) {
-      alert("Make sure to enter valid information for each field!");
-      event.preventDefault();
-   } else if (completedStatus === false) {
+   // Check that pilot names are valid strings; check that fuel level/cargo mass are numbers
+   if (!isValidName(pilotName.value.trim()) || !isValidName(copilotName.value.trim())) {
+      validStatus = false;
+   } else if (isNaN(fuelLevel.value.trim()) || isNaN(cargoMass.value.trim())) {
+      validStatus = false;
+   }
+
+   if (completedStatus === false) {
       alert("All fields are required!");
+      event.preventDefault();
+   } else if (validStatus === false) {
+      alert("Make sure to enter valid information for each field!");
       event.preventDefault();
    } else {
       event.preventDefault();
