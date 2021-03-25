@@ -13,23 +13,23 @@ const updateShuttleRequirements = () => {
    const fuelStatus = document.getElementById("fuelStatus");
    const cargoStatus = document.getElementById("cargoStatus");
    
-   document.getElementById("pilotStatus").innerHTML = `Pilot ${pilotName.value.trim()} is ready for launch`;
-   document.getElementById("copilotStatus").innerHTML = `Co-pilot ${copilotName.value.trim()} is ready for launch`;
+   document.getElementById("pilotStatus").innerText = `Pilot ${pilotName.value.trim()} is ready for launch`;
+   document.getElementById("copilotStatus").innerText = `Co-pilot ${copilotName.value.trim()} is ready for launch`;
 
    if (fuelLevel.value < 10000) {
       faultyItems.style.visibility = 'visible';
-      fuelStatus.innerHTML = 'Fuel level too low for launch';
-      launchStatus.innerHTML = 'Shuttle not ready for launch';
+      fuelStatus.innerText = 'Fuel level too low for launch';
+      launchStatus.innerText = 'Shuttle not ready for launch';
       launchStatus.style.color = 'red';
    } else if (cargoMass.value > 10000) {
       faultyItems.style.visibility = 'visible';
-      cargoStatus.innerHTML = 'Cargo mass too high for launch';
-      launchStatus.innerHTML = 'Shuttle not ready for launch';
+      cargoStatus.innerText = 'Cargo mass too high for launch';
+      launchStatus.innerText = 'Shuttle not ready for launch';
       launchStatus.style.color = 'red';
    } else {
-      fuelStatus.innerHTML = 'Fuel level high enough for launch';
-      cargoStatus.innerHTML = 'Cargo mass low enough for launch';
-      launchStatus.innerHTML = 'Shuttle is ready for launch';
+      fuelStatus.innerText = 'Fuel level high enough for launch';
+      cargoStatus.innerText = 'Cargo mass low enough for launch';
+      launchStatus.innerText = 'Shuttle is ready for launch';
       faultyItems.style.visibility = 'visible';
       launchStatus.style.color = 'green';
    }
@@ -43,7 +43,7 @@ const fetchData = async() => {
 
 const updateDestination = async() => {
    let planetData = await fetchData();
-   let randomIndex = Math.floor(Math.random() * 7)
+   let randomIndex = Math.floor(Math.random() * 7);    // Choose random destination
    const missionTarget = document.getElementById('missionTarget');
    
    missionTarget.innerHTML = `<h2>Mission Destination</h2>
@@ -54,7 +54,7 @@ const updateDestination = async() => {
       <li>Distance from Earth: ${planetData[randomIndex].distance}</li>
       <li>Number of Moons: ${planetData[randomIndex].moons}</li>
    </ol>
-   <img src="${planetData[randomIndex].image}">`
+   <img src="${planetData[randomIndex].image}">`;
 }
 
 const isFormComplete = () => {
