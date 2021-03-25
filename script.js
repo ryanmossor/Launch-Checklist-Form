@@ -55,7 +55,6 @@ const updateDestination = async() => {
       <li>Number of Moons: ${planetData[randomIndex].moons}</li>
    </ol>
    <img src="${planetData[randomIndex].image}">`
-   
 }
 
 const isFormComplete = () => {
