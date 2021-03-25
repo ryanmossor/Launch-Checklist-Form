@@ -21,12 +21,16 @@ const updateShuttleRequirements = () => {
       fuelStatus.innerText = 'Fuel level too low for launch';
       launchStatus.innerText = 'Shuttle not ready for launch';
       launchStatus.style.color = 'red';
-   } else if (cargoMass.value > 10000) {
+   }
+   
+   if (cargoMass.value > 10000) {
       faultyItems.style.visibility = 'visible';
       cargoStatus.innerText = 'Cargo mass too high for launch';
       launchStatus.innerText = 'Shuttle not ready for launch';
       launchStatus.style.color = 'red';
-   } else {
+   } 
+   
+   if (fuelLevel.value >= 10000 && cargoMass.value <= 10000) {
       fuelStatus.innerText = 'Fuel level high enough for launch';
       cargoStatus.innerText = 'Cargo mass low enough for launch';
       launchStatus.innerText = 'Shuttle is ready for launch';
