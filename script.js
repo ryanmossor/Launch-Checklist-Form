@@ -21,6 +21,33 @@ const isValidName = name => {
    return /^[a-z. ]+$/gi.test(name);
 }
 
+const updateShuttleRequirements = () => {
+   const faultyItems = document.getElementById("faultyItems");
+   const launchStatus = document.getElementById("launchStatus");
+   const fuelStatus = document.getElementById("fuelStatus");
+   const cargoStatus = document.getElementById("cargoStatus");
+   
+   document.getElementById("pilotStatus").innerHTML = `Pilot ${pilotName.value.trim()} is ready for launch`;
+   document.getElementById("copilotStatus").innerHTML = `Co-pilot ${copilotName.value.trim()} is ready for launch`;
+
+   if (fuelLevel.value < 10000) {
+      faultyItems.style.visibility = 'visible';
+      fuelStatus.innerHTML = 'Fuel level too low for launch';
+      launchStatus.innerHTML = 'Shuttle not ready for launch';
+      launchStatus.style.color = 'red';
+   } else if (cargoMass.value > 10000) {
+      faultyItems.style.visibility = 'visible';
+      cargoStatus.innerHTML = 'Cargo mass too high for launch';
+      launchStatus.innerHTML = 'Shuttle not ready for launch';
+      launchStatus.style.color = 'red';
+   } else {
+      fuelStatus.innerHTML = 'Fuel level high enough for launch';
+      cargoStatus.innerHTML = 'Cargo mass low enough for launch';
+      launchStatus.innerHTML = 'Shuttle is ready for launch';
+      launchStatus.style.color = 'green';
+   }
+}
+
 const validateForm = event => {
    let inputs = document.getElementsByTagName("input");
    let completedStatus = true;
@@ -47,6 +74,7 @@ const validateForm = event => {
       alert("Make sure to enter valid information for each field!");
       event.preventDefault();
    } else {
+      updateShuttleRequirements();
       event.preventDefault();
    }
 }
