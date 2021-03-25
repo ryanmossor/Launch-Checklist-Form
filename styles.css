@@ -42,6 +42,12 @@ div {
 	max-height: 250px;
 }
 
+#missionTarget ol,
+li {
+	list-style: none;
+	padding: 0;
+}
+
 #missionTarget {
 	background-color: #ecf0f1;
 	text-align: center;
