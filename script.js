@@ -21,6 +21,8 @@ const updateShuttleRequirements = () => {
       fuelStatus.innerText = 'Fuel level too low for launch';
       launchStatus.innerText = 'Shuttle not ready for launch';
       launchStatus.style.color = 'red';
+   } else {
+      fuelStatus.innerText = 'Fuel level high enough for launch';
    }
    
    if (cargoMass.value > 10000) {
@@ -28,11 +30,11 @@ const updateShuttleRequirements = () => {
       cargoStatus.innerText = 'Cargo mass too high for launch';
       launchStatus.innerText = 'Shuttle not ready for launch';
       launchStatus.style.color = 'red';
-   } 
+   } else {
+      cargoStatus.innerText = 'Cargo mass low enough for launch';
+   }
    
    if (fuelLevel.value >= 10000 && cargoMass.value <= 10000) {
-      fuelStatus.innerText = 'Fuel level high enough for launch';
-      cargoStatus.innerText = 'Cargo mass low enough for launch';
       launchStatus.innerText = 'Shuttle is ready for launch';
       faultyItems.style.visibility = 'visible';
       launchStatus.style.color = 'green';
@@ -40,14 +42,18 @@ const updateShuttleRequirements = () => {
 }
 
 const fetchData = async() => {
-   let response = await fetch('https://handlers.education.launchcode.org/static/planets.json');
-   let data = await response.json();
-   return data;
+   try {
+      let response = await fetch('https://handlers.education.launchcode.org/static/planets.json');
+      let data = await response.json();
+      return data;
+   } catch (err) {
+      console.log(err);
+   }
 }
 
 const updateDestination = async() => {
    let planetData = await fetchData();
-   let randomIndex = Math.floor(Math.random() * 7);    // Choose random destination
+   let randomIndex = Math.floor(Math.random() * 6);    // Choose random destination
    const missionTarget = document.getElementById('missionTarget');
    
    missionTarget.innerHTML = `<h2>Mission Destination</h2>
@@ -92,9 +98,8 @@ const validateForm = event => {
       alert("Make sure to enter valid information for each field!");
    } else {
       updateShuttleRequirements();
-      updateDestination();
    }
 }
 
-const form = document.getElementById("launchForm");
-form.addEventListener("submit", validateForm);
+window.addEventListener("load", updateDestination);
+document.getElementById("launchForm").addEventListener("submit", validateForm);
